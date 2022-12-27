@@ -15,7 +15,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release
     - name: Unit Tests (dotnet test)
-      run: dotnet test --no-restore --configuration Release Application.Tests.csproj
+      run: dotnet test --no-restore --configuration Release ResultWrapper.Tests.csproj
       working-directory: ResultWrapper.Tests
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
