@@ -1,0 +1,40 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>MarcUnterseh.$(MSBuildProjectName)</AssemblyName>
+    <Title>ResultWrapper</Title>
+    <Authors>Marc Unterseh</Authors>
+    <Description>Classes used to wrap the result of some treatments.</Description>
+    <PackageProjectUrl>https://github.com/MarcUnterseh/ResultWrapper</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/MarcUnterseh/ResultWrapper</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>9999</WarningLevel>
+    <NoWarn />
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <WarningLevel>9999</WarningLevel>
+    <NoWarn />
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <ItemGroup>
+  	<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+  		<_Parameter1>ResultWrapper.Tests</_Parameter1>
+  	</AssemblyAttribute>
+  	<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+  		<_Parameter1>DynamicProxyGenAssembly2</_Parameter1>
+  	</AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ResultWrapper.Abstractions\ResultWrapper.Abstractions.csproj" />
+  </ItemGroup>
+
+</Project>
