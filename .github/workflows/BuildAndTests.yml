@@ -15,12 +15,12 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release
     - name: Unit Tests (dotnet test)
-      run: dotnet test --no-restore --configuration Release ResultWrapper.Tests.csproj
+      run: dotnet test --collect:"XPlat Code Coverage" --no-restore --configuration Release ResultWrapper.Tests.csproj
       working-directory: ResultWrapper.Tests
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
-        filename: coverage/**/coverage.cobertura.xml
+        filename: ResultWrapper.Tests/TestResults/**/coverage.cobertura.xml
         badge: true
         fail_below_min: true
         format: markdown
