@@ -12,12 +12,11 @@ jobs:
         dotnet-version: 7.0.x
     - name: Restore dependencies
       run: dotnet restore
-      working-directory: src
     - name: Build
       run: dotnet build --no-restore --configuration Release
     - name: Unit Tests (dotnet test)
       run: dotnet test --no-restore --configuration Release Application.Tests.csproj
-      working-directory: src/Application.Tests
+      working-directory: ResultWrapper.Tests
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
       with:
