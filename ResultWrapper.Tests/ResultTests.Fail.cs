@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
 using ResultWrapper.Abstractions;
 using Xunit;
 
@@ -32,6 +33,15 @@ public partial class ResultTests
     }
 
     [Fact]
+    public void Fail_WithException_ShouldThrowException_WhenExceptionIsNull()
+    {
+        Exception expectedException = null;
+        Func<IResult> failFunction = () => Result.Fail(expectedException);
+
+        failFunction.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
     public void Fail_WithMessage_ShouldAddMessageToList()
     {
         const string message = "My message";
@@ -46,6 +56,16 @@ public partial class ResultTests
     }
 
     [Fact]
+    public void Fail_WithMessage_ShouldThrowException_WhenMessageIsNullOrEmpty()
+    {
+        const string message = null;
+
+        Func<IResult> failFunction = () => Result.Fail(message);
+
+        failFunction.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
     public void Fail_WithListOfMessages_ShouldSetMessageList()
     {
         List<string> messages = new List<string> { "Message 1", "Message 2" };
@@ -57,6 +77,16 @@ public partial class ResultTests
 
         result.Succeeded.Should().BeFalse();
         result.Messages.Should().BeEquivalentTo(messages);
+    }
+
+    [Fact]
+    public void Fail_WithListOfMessages_ShouldThrowException_WhenListOfMessagesIsNull()
+    {
+        List<string> messages = null;
+
+        Func<IResult> failFunction = () => Result.Fail(messages);
+
+        failFunction.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
@@ -76,6 +106,28 @@ public partial class ResultTests
     }
 
     [Fact]
+    public void Fail_WithExceptionAndMessage_ShouldThrowException_WhenMessageIsNullOrEmpty()
+    {
+        Exception expectedException = new Exception("Expected message");
+        const string message = null;
+
+        Func<IResult> failFunction = () => Result.Fail(expectedException, message);
+
+        failFunction.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
+    public void Fail_WithExceptionAndMessage_ShouldThrowException_WhenExceptionIsNull()
+    {
+        Exception expectedException = null;
+        const string message = "My message";
+
+        Func<IResult> failFunction = () => Result.Fail(expectedException, message);
+
+        failFunction.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
     public void Fail_WithExceptionAndListOfMessages_ShouldSetExceptionAndMessageList()
     {
         Exception expectedException = new Exception("Expected message");
@@ -89,6 +141,28 @@ public partial class ResultTests
 
         result.Succeeded.Should().BeFalse();
         result.Messages.Should().BeEquivalentTo(messages);
+    }
+
+    [Fact]
+    public void Fail_WithExceptionAndListOfMessages_ShouldThrowException_WhenListOfMessagesIsNull()
+    {
+        Exception expectedException = new Exception("Expected message");
+        List<string> messages = null;
+
+        Func<IResult> failFunction = () => Result.Fail(expectedException, messages);
+
+        failFunction.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
+    public void Fail_WithExceptionAndListOfMessages_ShouldThrowException_WhenExceptionIsNull()
+    {
+        Exception expectedException = null;
+        List<string> messages = new List<string> { "Message 1", "Message 2" };
+
+        Func<IResult> failFunction = () => Result.Fail(expectedException, messages);
+
+        failFunction.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
@@ -117,6 +191,15 @@ public partial class ResultTests
     }
 
     [Fact]
+    public void Fail_WithDataType_WithException_ShouldThrowException_WhenExceptionIsNull()
+    {
+        Exception expectedException = null;
+        Func<IResult> failFunction = () => Result.Fail<decimal>(expectedException);
+
+        failFunction.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
     public void Fail_WithDataType_WithMessage_ShouldAddMessageToList()
     {
         const string message = "My message";
@@ -128,6 +211,16 @@ public partial class ResultTests
 
         result.Succeeded.Should().BeFalse();
         result.Messages.Should().HaveCount(1).And.Contain(message);
+    }
+
+    [Fact]
+    public void Fail_WithDataType_WithMessage_ShouldThrowException_WhenMessageIsNullOrEmpty()
+    {
+        const string message = null;
+
+        Func<IResult> failFunction = () => Result.Fail<decimal>(message);
+
+        failFunction.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
@@ -144,6 +237,15 @@ public partial class ResultTests
         result.Messages.Should().BeEquivalentTo(messages);
     }
 
+    [Fact]
+    public void Fail_WithDataType_WithListOfMessages_ShouldThrowException_WhenListOfMessagesIsNull()
+    {
+        List<string> messages = null;
+
+        Func<IResult> failFunction = () => Result.Fail<decimal>(messages);
+
+        failFunction.Should().Throw<ArgumentNullException>();
+    }
 
     [Fact]
     public void Fail_WithDataType_WithExceptionAndMessage_ShouldSetExceptionAndAddMessageToList()
@@ -162,6 +264,28 @@ public partial class ResultTests
     }
 
     [Fact]
+    public void Fail_WithDataType_WithExceptionAndMessage_ShouldThrowException_WhenMessageIsNullOrEmpty()
+    {
+        Exception expectedException = new Exception("Expected message");
+        const string message = null;
+
+        Func<IResult> failFunction = () => Result.Fail<decimal>(expectedException, message);
+
+        failFunction.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
+    public void Fail_WithDataType_WithExceptionAndMessage_ShouldThrowException_WhenExceptionIsNull()
+    {
+        Exception expectedException = null;
+        const string message = "My message";
+
+        Func<IResult> failFunction = () => Result.Fail<decimal>(expectedException, message);
+
+        failFunction.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
     public void Fail_WithDataType_WithExceptionAndListOfMessages_ShouldSetExceptionAndMessageList()
     {
         Exception expectedException = new Exception("Expected message");
@@ -175,5 +299,27 @@ public partial class ResultTests
 
         result.Succeeded.Should().BeFalse();
         result.Messages.Should().BeEquivalentTo(messages);
+    }
+
+    [Fact]
+    public void Fail_WithDataType_WithExceptionAndListOfMessages_ShouldThrowException_WhenListOfMessagesIsNull()
+    {
+        Exception expectedException = new Exception("Expected message");
+        List<string> messages = null;
+
+        Func<IResult> failFunction = () => Result.Fail<decimal>(expectedException, messages);
+
+        failFunction.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
+    public void Fail_WithDataType_WithExceptionAndListOfMessages_ShouldThrowException_WhenExceptionIsNull()
+    {
+        Exception expectedException = null;
+        List<string> messages = new List<string> { "Message 1", "Message 2" };
+
+        Func<IResult> failFunction = () => Result.Fail<decimal>(expectedException, messages);
+
+        failFunction.Should().Throw<ArgumentNullException>();
     }
 }

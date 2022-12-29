@@ -32,6 +32,14 @@ public partial class ResultTests
     }
 
     [Fact]
+    public void Success_WithMessage_ShouldThrowException_WhenMessageIsNullOrEmpty()
+    {
+        const string message = null;
+        Func<IResult> successFunction = () => Result.Success(message);
+        successFunction.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
     public void Success_WithListOfMessages_ShouldSetMessageList()
     {
         List<string> messages = new List<string> { "Message 1", "Message 2" };
@@ -45,6 +53,13 @@ public partial class ResultTests
         result.Messages.Should().BeEquivalentTo(messages);
     }
 
+    [Fact]
+    public void Success_WithListOfMessages_ShouldThrowException_WhenListOfMessagesIsNull()
+    {
+        List<string> messages = null;
+        Func<IResult> successFunction = () => Result.Success(messages);
+        successFunction.Should().Throw<ArgumentNullException>();
+    }
 
     [Fact]
     public void Success_WithData_ShouldSetData()
@@ -77,6 +92,17 @@ public partial class ResultTests
     }
 
     [Fact]
+    public void Success_WithDataAndMessage_ShouldThrowException_WhenMessageIsNullOrEmpty()
+    {
+        const string message = null;
+        const double resultData = 12.5d;
+
+        Func<IResult> successFunction = () => Result.Success(resultData, message);
+
+        successFunction.Should().Throw<ArgumentNullException>();
+    }
+
+    [Fact]
     public void Success_WithDataAndListOfMessage_ShouldSetDataAndMessageList()
     {
         List<string> messages = new List<string> { "Message 1", "Message 2" };
@@ -90,5 +116,16 @@ public partial class ResultTests
 
         result.Succeeded.Should().BeTrue();
         result.Messages.Should().BeEquivalentTo(messages);
+    }
+
+    [Fact]
+    public void Success_WithDataAndListOfMessage_ShouldThrowException_WhenListOfMessagesIsNull()
+    {
+        List<string> messages = null;
+        const double resultData = 12.5d;
+
+        Func<IResult> successFunction = () => Result.Success(resultData, messages);
+
+        successFunction.Should().Throw<ArgumentNullException>();
     }
 }

@@ -5,9 +5,23 @@ namespace ResultWrapper;
 internal class SuccessResult : ISuccessResult
 {
     internal SuccessResult() {}
-    internal SuccessResult(string message) => Messages.Add(message);
-    internal SuccessResult(List<string> messages) => Messages.AddRange(messages);
-    
+
+    internal SuccessResult(string message)
+    {
+        if (string.IsNullOrWhiteSpace(message)) 
+            throw new ArgumentNullException(nameof(message));
+
+        Messages.Add(message);
+    }
+
+    internal SuccessResult(List<string> messages)
+    {
+        if (messages == null) 
+            throw new ArgumentNullException(nameof(messages));
+
+        Messages.AddRange(messages);
+    }
+
     public bool Succeeded => true;
     public List<string> Messages { get; } = new();
 }
